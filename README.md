@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ## Run
 
 ```
-uvicorn main:app --reload --host 0.0.0.0 --port 7998
+uvicorn openai_api:app --reload --host 0.0.0.0 --port 7965
 
 # or on windows
 ./main.bat
