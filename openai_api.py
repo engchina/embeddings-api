@@ -68,55 +68,18 @@ class DocumentClassifyManager(BaseModel):
     example_docs: List[Dict]
 
 
+# 设置环境变量，指定模型和数据集路径
+MODEL_PATH = "/app/models/"
+os.environ['TRANSFORMERS_OFFLINE'] = "1"
+os.environ['HF_DATASETS_OFFLINE'] = "1"
+
 # 优化点 2：减少常量加载时间
 WORKER_API_EMBEDDING_BATCH_SIZE = int(os.getenv("FASTCHAT_WORKER_API_EMBEDDING_BATCH_SIZE", 4))
 
 MODELS = {
-    # "text-embedding-3-small": SentenceTransformer(
-    #     model_name_or_path="intfloat/multilingual-e5-large", trust_remote_code=True, device="cuda"
-    # ),
     "text-embedding-3-large": SentenceTransformer(
-        model_name_or_path="intfloat/multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
+        model_name_or_path=MODEL_PATH + "intfloat/multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
     ),
-    # "text-embedding-3-large": SentenceTransformer(
-    #     model_name_or_path="jinaai/jina-embeddings-v3", trust_remote_code=True, device="cuda",
-    #     model_kwargs={'default_task': 'retrieval.query'}
-    # ),
-    # "text-embedding-3-small": SentenceTransformer(
-    #     "intfloat/multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
-    # ),
-    # "text-embedding-ada-002": SentenceTransformer(
-    #     "intfloat/multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
-    # ),
-    # "multilingual-e5-large-instruct": SentenceTransformer(
-    #     "intfloat/multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
-    # ),
-    # "multilingual-e5-large": SentenceTransformer(
-    #     "intfloat/multilingual-e5-large", trust_remote_code=True, device="cuda"
-    # ),
-    # "Conan-embedding-v1": EmbeddingModel(
-    #     model_name_or_path="TencentBAC/Conan-embedding-v1", device="cuda", trust_remote_code=True
-    # ),
-    # "xiaobu-embedding-v2": EmbeddingModel(
-    #     model_name_or_path="lier007/xiaobu-embedding-v2", device="cuda", trust_remote_code=True
-    # ),
-    # "bce-embedding-base_v1": EmbeddingModel(
-    #     model_name_or_path="maidalun1020/bce-embedding-base_v1", device="cuda", trust_remote_code=True
-    # ),
-    # "bge-m3": BGEM3FlagModel("BAAI/bge-m3", use_fp16=True, device="cuda"),
-    # "bge-multilingual-gemma2": SentenceTransformer(
-    #     "BAAI/bge-multilingual-gemma2", model_kwargs={"torch_dtype": torch.float16}
-    # ),
-    # "gte-Qwen1.5-7B-instruct": SentenceTransformer(
-    #     "Alibaba-NLP/gte-Qwen1.5-7B-instruct", trust_remote_code=True, device="cuda"
-    # ),
-    # "zpoint_large_embedding_zh": SentenceTransformer(
-    #     "iampanda/zpoint_large_embedding_zh", device="cuda", trust_remote_code=True
-    # ),
-    # "jina-embeddings-v3": SentenceTransformer(
-    #     model_name_or_path="jinaai/jina-embeddings-v3", trust_remote_code=True, device="cuda",
-    #     model_kwargs={'default_task': 'retrieval.query'}
-    # ),
 }
 
 app = FastAPI()
