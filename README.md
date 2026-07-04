@@ -24,7 +24,7 @@ MAX_JOBS=4 python -m pip install flash-attn==2.7.0.post2 --no-build-isolation
 ## Run
 
 ```
-uvicorn openai_api:app --reload --host 0.0.0.0 --port 7965
+uvicorn openai_api:app --reload --host 0.0.0.0 --port 8885
 
 # or on windows
 ./main.bat
@@ -36,7 +36,7 @@ uvicorn openai_api:app --reload --host 0.0.0.0 --port 7965
 ## Use Example
 
 ```
-curl -s -X POST "http://localhost:7965/v1/embeddings" \
+curl -s -X POST "http://localhost:8885/v1/embeddings" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "text-embedding-3-large",

@@ -69,7 +69,7 @@ class DocumentClassifyManager(BaseModel):
 
 
 # 设置环境变量，指定模型和数据集路径
-MODEL_PATH = "/app/models/"
+MODEL_PATH = "/root/HuggingFaceCache/"
 os.environ['TRANSFORMERS_OFFLINE'] = "1"
 os.environ['HF_DATASETS_OFFLINE'] = "1"
 
@@ -78,7 +78,7 @@ WORKER_API_EMBEDDING_BATCH_SIZE = int(os.getenv("FASTCHAT_WORKER_API_EMBEDDING_B
 
 MODELS = {
     "text-embedding-3-large": SentenceTransformer(
-        model_name_or_path=MODEL_PATH + "intfloat/multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
+        model_name_or_path=MODEL_PATH + "multilingual-e5-large-instruct", trust_remote_code=True, device="cuda"
     ),
 }
 
@@ -199,4 +199,4 @@ def calculate_similarities(query_embeddings: List[float], example_embeddings: Li
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=7965)
+    uvicorn.run(app, host="0.0.0.0", port=8885)
