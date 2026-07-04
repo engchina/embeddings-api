@@ -8,11 +8,15 @@ conda activate embeddings-api
 ```
 
 ```
-pip install -U pip
-pip install -r requirements.txt
+python -m pip install -U pip setuptools wheel
+python -m pip install packaging ninja psutil
 
-# pip install flash-attn --no-build-isolation
-# pip list --format=freeze > requirements.txt
+python -c "import torch; print(torch.__version__, torch.version.cuda)"
+
+grep -v '^flash-attn' requirements.txt > /tmp/requirements-no-flash-attn.txt
+python -m pip install -r /tmp/requirements-no-flash-attn.txt
+
+MAX_JOBS=4 python -m pip install flash-attn==2.7.0.post2 --no-build-isolation
 ```
 
 ## Run
