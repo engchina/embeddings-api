@@ -33,15 +33,27 @@ uvicorn openai_api:app --reload --host 0.0.0.0 --port 7965
 ./main.sh
 ```
 
-## Use
+## Use Example
 
 ```
-http://localhost:7965/v1/embed
+curl -s -X POST "http://localhost:7965/v1/embeddings" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "text-embedding-3-large",
+    "input": [
+      "これは日本語の埋め込みAPIテストです。",
+      "東京都の天気について教えてください。",
+      "Oracle Databaseのベクトル検索機能を検証しています。",
+      "多言語モデルで日本語文書の意味検索を行います。"
+    ]
+  }' | jq '{
+    model,
+    count: (.data | length),
+    dims: [.data[].embedding | length],
+    usage
+  }'
 ```
 
 ## Supported Models
 
 - text-embedding-3-large
-- text-embedding-3-small
-- text-embedding-ada-002
-- multilingual-e5-large-instruct
